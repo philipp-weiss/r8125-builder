@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:bookworm
 MAINTAINER weph philipp.weiss@web.de
 USER root
 
