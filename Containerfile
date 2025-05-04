@@ -1,5 +1,5 @@
 FROM debian:bookworm
-MAINTAINER weph philipp.weiss@web.de
+LABEL maintainer="weph philipp.weiss@web.de"
 USER root
 
 RUN apt update
