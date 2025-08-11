@@ -8,11 +8,9 @@ RUN apt install -y \
     wget \
     dkms
 
-ARG PROXMOX_REPO="http://download.proxmox.com/debian/pve/dists/bookworm/pve-no-subscription/binary-amd64/"
-ARG PROXMOX_R8125="r8125-dkms_9.013.02-1~bpo12+1_all.deb"
-
-COPY kernel_version.env /tmp/
-RUN . /tmp/kernel_version.env && \
-    export PROXMOX_HEADERS="proxmox-headers-${KERNEL_VERSION}-pve_${KERNEL_VERSION}_amd64.deb" && \
-    wget ${PROXMOX_REPO}${PROXMOX_HEADERS} && dpkg -i ${PROXMOX_HEADERS} && \
-    wget ${PROXMOX_REPO}${PROXMOX_R8125} && dpkg -i ${PROXMOX_R8125}
+ARG ENV_FILE
+RUN echo "$ENV_FILE"
+COPY ${ENV_FILE} /tmp/
+RUN . /tmp/${ENV_FILE} && \
+    wget ${HEADERS} && dpkg -i $(basename ${HEADERS}) && \
+    wget ${R8125} && dpkg -i $(basename ${R8125})
